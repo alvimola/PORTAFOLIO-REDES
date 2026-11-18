@@ -1,0 +1,171 @@
+!
+version 15.0
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname ALS1
+!
+!
+!
+no ip domain-lookup
+!
+vtp domain EMPRESA
+vtp mode transparent
+vtp version 2
+!
+!
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+!
+vlan 110
+ name OPERACIONES
+!
+vlan 120
+ name LOGISTICA
+!
+vlan 190
+ name ADMIN_RED
+!
+vlan 777
+ name NATIVA_AISLADA
+!
+interface Port-channel1
+ description Enlace Po10 hacia DLS1 (PAgP)
+ switchport trunk native vlan 777
+ switchport trunk allowed vlan 110,120,190,777
+ switchport mode trunk
+ switchport nonegotiate
+!
+interface Port-channel4
+ description Enlace Po40 hacia DLS2 (LACP)
+ switchport trunk native vlan 777
+ switchport trunk allowed vlan 110,120,190,777
+ switchport mode trunk
+!
+interface FastEthernet0/1
+ description PC-A
+ switchport access vlan 110
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet0/2
+ description PC-C
+ switchport access vlan 120
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet0/3
+ description PC-MGMT
+ switchport access vlan 190
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet0/4
+ shutdown
+!
+interface FastEthernet0/5
+ shutdown
+!
+interface FastEthernet0/6
+ shutdown
+!
+interface FastEthernet0/7
+ shutdown
+!
+interface FastEthernet0/8
+ shutdown
+!
+interface FastEthernet0/9
+ shutdown
+!
+interface FastEthernet0/10
+ shutdown
+!
+interface FastEthernet0/11
+ shutdown
+!
+interface FastEthernet0/12
+ shutdown
+!
+interface FastEthernet0/13
+ shutdown
+!
+interface FastEthernet0/14
+ shutdown
+!
+interface FastEthernet0/15
+ shutdown
+!
+interface FastEthernet0/16
+ shutdown
+!
+interface FastEthernet0/17
+ shutdown
+!
+interface FastEthernet0/18
+ shutdown
+!
+interface FastEthernet0/19
+ shutdown
+!
+interface FastEthernet0/20
+ shutdown
+!
+interface FastEthernet0/21
+ switchport trunk native vlan 777
+ switchport trunk allowed vlan 110,120,190,777
+ switchport mode trunk
+ switchport nonegotiate
+ channel-group 1 mode auto
+!
+interface FastEthernet0/22
+ switchport trunk native vlan 777
+ switchport trunk allowed vlan 110,120,190,777
+ switchport mode trunk
+ switchport nonegotiate
+ channel-group 1 mode auto
+!
+interface FastEthernet0/23
+ switchport trunk native vlan 777
+ switchport trunk allowed vlan 110,120,190,777
+ switchport mode trunk
+ channel-group 4 mode passive
+!
+interface FastEthernet0/24
+ switchport trunk native vlan 777
+ switchport trunk allowed vlan 110,120,190,777
+ switchport mode trunk
+ channel-group 4 mode passive
+!
+interface GigabitEthernet0/1
+ shutdown
+!
+interface GigabitEthernet0/2
+ shutdown
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan190
+ ip address 172.22.190.13 255.255.255.0
+!
+ip default-gateway 172.22.190.1
+!
+!
+!
+!
+line con 0
+!
+line vty 0 4
+ login
+line vty 5 15
+ login
+!
+!
+!
+!
+end
+
